@@ -1,5 +1,6 @@
 package co.com.quind.api.mapper;
 
+import co.com.quind.api.dto.CustomerRequestDto;
 import co.com.quind.api.dto.CustomerResponseDto;
 import co.com.quind.model.customer.Customer;
 import lombok.experimental.UtilityClass;
@@ -23,6 +24,18 @@ public class CustomerMapper {
                 .birthdate(customer.getBirthdate())
                 .identificationType(customer.getIdentificationType())
                 .lastname(customer.getLastname())
+                .build();
+    }
+
+    public static Customer toDomain(CustomerRequestDto customerRequestDto){
+
+        return Customer.builder()
+                .identificationType(customerRequestDto.getIdentificationType())
+                .identificationNumber(customerRequestDto.getIdentificationNumber())
+                .names(customerRequestDto.getNames())
+                .lastname(customerRequestDto.getLastname())
+                .email(customerRequestDto.getEmail())
+                .birthdate(customerRequestDto.getBirthdate())
                 .build();
     }
 }

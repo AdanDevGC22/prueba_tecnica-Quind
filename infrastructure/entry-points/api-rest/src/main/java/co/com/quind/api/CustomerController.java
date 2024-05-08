@@ -2,7 +2,9 @@ package co.com.quind.api;
 import co.com.quind.api.dto.CustomerRequestDto;
 import co.com.quind.api.dto.CustomerResponseDto;
 import co.com.quind.api.mapper.CustomerMapper;
+import co.com.quind.model.customer.Customer;
 import co.com.quind.usecase.customer.CustomerUseCase;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +25,9 @@ public class CustomerController {
     }
 
     @PostMapping
-    public CustomerResponseDto save(@RequestBody CustomerRequestDto customerRequestDto){
-        return  null;
+    public CustomerResponseDto save(@RequestBody @Valid CustomerRequestDto customerRequestDto){
+        Customer customerSaved = customerUseCase.save(CustomerMapper.toDomain(customerRequestDto));
+
+        return  CustomerMapper.customerToCustomerResponseDto(customerSaved);
     }
 }

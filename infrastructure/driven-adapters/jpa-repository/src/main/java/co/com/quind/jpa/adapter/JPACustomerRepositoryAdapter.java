@@ -2,6 +2,7 @@ package co.com.quind.jpa.adapter;
 
 import co.com.quind.jpa.entities.CustomerEntity;
 import co.com.quind.jpa.helper.AdapterOperations;
+import co.com.quind.jpa.mapper.CustomerMapper;
 import co.com.quind.jpa.repository.JPACustomerRepository;
 import co.com.quind.model.customer.Customer;
 import co.com.quind.model.customer.gateways.CustomerRepository;
@@ -27,5 +28,11 @@ public class JPACustomerRepositoryAdapter extends AdapterOperations<Customer, Cu
     @Override
     public List<Customer> getAll() {
         return findAll();
+    }
+
+    @Override
+    public Customer saveCustomer(Customer customer) {
+        CustomerEntity customerEntity = saveData(CustomerMapper.toCustomerEntity(customer));
+        return CustomerMapper.toCustomer(customerEntity);
     }
 }

@@ -5,12 +5,19 @@ spring:
     name: "prueba-quind"
   devtools:
     add-properties: false
-  h2:
-    console:
-      enabled: true
-      path: "/h2"
+  #h2:
+   # console:
+    #  enabled: true
+     # path: "/h2"
   profiles:
     include: null
+  datasource:
+    url: "jdbc:postgresql://quind.c5uikk0o0gh6.us-east-2.rds.amazonaws.com:5432/postgres"
+    username: "root"
+    password: "admin123"
+    driverClassName: "org.postgresql.Driver"
+  jpa:
+    databasePlatform: "org.hibernate.dialect.PostgreSQLDialect"
 management:
   endpoints:
     web:

@@ -4,13 +4,13 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class ApiRestTest {
+class CustomerControllerTest {
 
-    ApiRest apiRest = new ApiRest();
+    CustomerController customerController = new CustomerController();
 
     @Test
     void apiRestTest() {
-        var response = apiRest.commandName();
+        var response = customerController.commandName();
         assertEquals("Hello World", response);
     }
 }

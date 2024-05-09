@@ -1,6 +1,8 @@
 package co.com.quind.usecase.customer;
 
 import co.com.quind.model.customer.Customer;
+import co.com.quind.model.customer.config.ErrorCode;
+import co.com.quind.model.customer.config.QuindException;
 import co.com.quind.model.customer.gateways.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -17,13 +19,19 @@ public class CustomerUseCase {
 
     public Customer save(Customer customer){
 
+        validateIdentificationNumber(customer.getIdentificationNumber());
         LocalDate currentDate = LocalDate.now();
-        LocalDate date18YearsAfter = customer.getBirthdate().plusYears(18);
+        int ageCustomer = currentDate.getYear()-customer.getBirthdate().getYear();
 
-        // Verificar si la fecha actual es después de 18 años de tu cumpleaños
-        if (!currentDate.isAfter(date18YearsAfter)) {
-            System.out.println("No han pasado exactamente 18 años desde tu cumpleaños.");
+        if (ageCustomer < 18) {
+            throw new QuindException(ErrorCode.B409000);
         }
         return  customerRepository.saveCustomer(customer);
+    }
+
+    public void validateIdentificationNumber(String identificationNumber){
+        if (customerRepository.existsCustomerByIdentificationNumber(identificationNumber)){
+            throw new QuindException(ErrorCode.B409001);
+        }
     }
 }

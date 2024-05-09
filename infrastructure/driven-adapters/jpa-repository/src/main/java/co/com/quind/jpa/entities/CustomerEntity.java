@@ -2,6 +2,8 @@ package co.com.quind.jpa.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -32,9 +34,11 @@ public class CustomerEntity {
     @Column(name = "birthdate")
     private LocalDate birthdate;
 
-    @Column(name = "creation_date")
+    @CreatedDate
+    @Column(name = "creation_date", updatable = false)
     private LocalDateTime creationDate;
 
+    @LastModifiedDate
     @Column(name = "modification_date")
     private LocalDateTime modificationDate;
 }

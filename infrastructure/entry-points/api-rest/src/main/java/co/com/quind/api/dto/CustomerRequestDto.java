@@ -23,7 +23,7 @@ public class CustomerRequestDto {
     @Size(min = 3, max = 100)
     private String lastname;
     @NotNull
-    @Pattern(regexp = "^[A-Za-z0-9+_.-]+@(.+)$")
+    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")
     private String email;
     @NotNull
     private LocalDate birthdate;

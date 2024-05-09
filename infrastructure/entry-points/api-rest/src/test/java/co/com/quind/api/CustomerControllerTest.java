@@ -1,5 +1,6 @@
 package co.com.quind.api;
 
+import co.com.quind.api.controller.CustomerController;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

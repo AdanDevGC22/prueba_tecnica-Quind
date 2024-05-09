@@ -15,7 +15,6 @@ import java.util.Objects;
 
 @ControllerAdvice
 public class ExceptionHandlerController {
-    //excepcion para validar parametros que llegan en la peticion, parametros obligatorios y longitudes, entre otros
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ResponseErrorDto> handleConstraintViolationException(MethodArgumentNotValidException e) {
         return genericHandleException(ErrorCode.B400000);

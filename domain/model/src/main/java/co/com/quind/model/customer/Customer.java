@@ -1,17 +1,14 @@
 package co.com.quind.model.customer;
-import lombok.Builder;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.*;
 //import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
-//@NoArgsConstructor
 @AllArgsConstructor
+@ToString
 @Builder(toBuilder = true)
 public class Customer {
 

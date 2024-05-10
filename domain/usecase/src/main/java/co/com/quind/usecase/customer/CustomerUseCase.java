@@ -58,10 +58,8 @@ public class CustomerUseCase {
     }
 
     public Customer update(Customer customer) {
-        // Lanzar una excepción si customer es nulo
         Objects.requireNonNull(customer);
 
-        // Validar la edad del cliente
         int ageCustomer = LocalDate.now().getYear() - Optional.ofNullable(customer.getBirthdate())
                 .map(LocalDate::getYear).orElseThrow(() -> new QuindException(ErrorCode.B400000));
 
@@ -69,11 +67,9 @@ public class CustomerUseCase {
             throw new QuindException(ErrorCode.B409000);
         }
 
-        // Buscar el cliente en el repositorio
         Customer customerSaved = Optional.ofNullable(customerRepository.findByIdentificationNumberAndIdentificationType(customer.getIdentificationNumber(),
                 customer.getIdentificationType())).orElseThrow(() -> new QuindException(ErrorCode.B404000));
 
-        // Actualizar los datos del cliente
         customerSaved.setModificationDate(LocalDateTime.now());
         customerSaved.setEmail(customer.getEmail());
         customerSaved.setNames(customer.getNames());

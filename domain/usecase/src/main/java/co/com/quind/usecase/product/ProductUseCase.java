@@ -17,7 +17,7 @@ import java.util.Random;
 public class ProductUseCase {
     private final CustomerUseCase customerUseCase;
     private final ProductRepository productRepository;
-    private Random random = new Random();
+    private final Random random = new Random();
 
     public Product save(Product product){
         Customer customerDB = customerUseCase.getCustomerByID(product.getCustomer().getId());
@@ -48,10 +48,9 @@ public class ProductUseCase {
             prefijo = "53";
         }
 
-        // Generar sufijo aleatorio de 8 dígitos
         long sufijoLong = random.nextLong() % 100000000;
         if (sufijoLong < 0) {
-            sufijoLong *= -1; // Asegurar que sea positivo
+            sufijoLong *= -1;
         }
         String sufijo = String.format("%08d", sufijoLong);
 

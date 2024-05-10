@@ -5,12 +5,10 @@ import co.com.quind.api.mapper.TransactionMapper;
 import co.com.quind.usecase.transaction.TransactionUseCase;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 @Transactional
 @RestController
 @RequestMapping(value = "/api/transaction", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -18,23 +16,24 @@ import org.springframework.web.bind.annotation.RestController;
 public class TransactionController {
 
     private TransactionUseCase transactionUseCase;
+
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/")
-    public ResponseEntity<TransactionResponseDto> transfer(@RequestParam(name = "sourceAccountNumber") String sourceAccountNumber, @RequestParam(name = "destinationAccountNumber") String destinationAccountNumber, @RequestParam(name = "amount") double amount) {
-        TransactionResponseDto transactionResponseDto =TransactionMapper.toTransactionResponseDto(transactionUseCase.transfer(sourceAccountNumber,destinationAccountNumber,amount));
-        return ResponseEntity.ok(transactionResponseDto);
+    public TransactionResponseDto transfer(@RequestParam(name = "sourceAccountNumber") String sourceAccountNumber, @RequestParam(name = "destinationAccountNumber") String destinationAccountNumber, @RequestParam(name = "amount") double amount) {
+        return TransactionMapper.toTransactionResponseDto(transactionUseCase.transfer(sourceAccountNumber, destinationAccountNumber, amount));
 
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/consignment")
-    public ResponseEntity<TransactionResponseDto> consignment(@RequestParam(name = "accountNumber") String accountNumber, @RequestParam(name = "amount") double amount) {
-        TransactionResponseDto transactionResponseDto = TransactionMapper.toTransactionResponseDto(transactionUseCase.consignment(accountNumber,amount));
-        return ResponseEntity.ok(transactionResponseDto);
+    public TransactionResponseDto consignment(@RequestParam(name = "accountNumber") String accountNumber, @RequestParam(name = "amount") double amount) {
+        return TransactionMapper.toTransactionResponseDto(transactionUseCase.consignment(accountNumber, amount));
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/retreat")
-    public ResponseEntity<TransactionResponseDto> retreat(@RequestParam(name = "accountNumber") String accountNumber, @RequestParam(name = "amount") double amount) {
-        TransactionResponseDto transactionResponseDto =TransactionMapper.toTransactionResponseDto(transactionUseCase.retreat(accountNumber,amount));
-        return ResponseEntity.ok(transactionResponseDto);
+    public TransactionResponseDto retreat(@RequestParam(name = "accountNumber") String accountNumber, @RequestParam(name = "amount") double amount) {
+        return TransactionMapper.toTransactionResponseDto(transactionUseCase.retreat(accountNumber, amount));
     }
 
 

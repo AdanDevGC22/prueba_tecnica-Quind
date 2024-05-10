@@ -26,7 +26,6 @@ class CustomerControllerTest {
     @InjectMocks
     private CustomerController customerController;
 
-    // Método auxiliar para crear un objeto Customer con los campos completos
     private Customer createCustomer(Long id, String identificationType, String identificationNumber, String names, String lastname) {
         return Customer.builder()
                 .id(id)
@@ -44,7 +43,6 @@ class CustomerControllerTest {
 
     @Test
     void testGetAllSuccessful() {
-        // Arrange
         Customer customer1 = createCustomer(1L, "ID", "1234567890", "Adan", "Gonzalez");
         Customer customer2 = createCustomer(2L, "ID", "0987654321", "Pedro", "Gomez");
         List<Customer> customersExpected = List.of(customer1, customer2);

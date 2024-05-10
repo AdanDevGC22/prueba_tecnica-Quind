@@ -17,7 +17,8 @@ public class TransactionEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private TransactionType type;
 
     private BigDecimal amount;
 
@@ -25,6 +26,10 @@ public class TransactionEntity {
     private LocalDateTime transactionDate;
 
     @ManyToOne
-    @JoinColumn(name = "account_id")
-    private ProductEntity account;
+    @JoinColumn(name = "source_account")
+    private ProductEntity sourceAccount;
+
+    @ManyToOne
+    @JoinColumn(name = "destination_account")
+    private ProductEntity destinationAccount;
 }

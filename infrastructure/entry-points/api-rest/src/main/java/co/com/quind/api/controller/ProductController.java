@@ -1,23 +1,18 @@
 package co.com.quind.api.controller;
 
-import co.com.quind.api.dto.request.CustomerRequestDto;
 import co.com.quind.api.dto.request.ProductRequestDto;
 import co.com.quind.api.dto.request.UpdateProductRequestDto;
-import co.com.quind.api.dto.response.CustomerResponseDto;
 import co.com.quind.api.dto.response.ProductResponseDto;
-import co.com.quind.api.mapper.CustomerMapper;
 import co.com.quind.api.mapper.ProductMapper;
-import co.com.quind.model.customer.Customer;
 import co.com.quind.model.product.Product;
 import co.com.quind.usecase.product.ProductUseCase;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-
+@Transactional
 @RestController
 @RequestMapping(value = "/api/product", produces = MediaType.APPLICATION_JSON_VALUE)
 @AllArgsConstructor

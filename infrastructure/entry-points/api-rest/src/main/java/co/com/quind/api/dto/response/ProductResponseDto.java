@@ -1,6 +1,5 @@
 package co.com.quind.api.dto.response;
 
-import co.com.quind.model.customer.Customer;
 import co.com.quind.model.product.AccountStatus;
 import co.com.quind.model.product.AccountType;
 import lombok.*;
@@ -18,7 +17,5 @@ public class ProductResponseDto {
     private AccountStatus status;
     private BigDecimal balance;
     private boolean exemptGMF;
-    //private LocalDateTime creationDate;
-    //private LocalDateTime modificationDate;
     private String customerName;
 }

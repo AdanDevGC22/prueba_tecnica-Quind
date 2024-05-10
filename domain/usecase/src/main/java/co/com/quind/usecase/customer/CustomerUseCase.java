@@ -1,12 +1,11 @@
 package co.com.quind.usecase.customer;
 
-import co.com.quind.model.customer.Customer;
 import co.com.quind.model.config.ErrorCode;
 import co.com.quind.model.config.QuindException;
+import co.com.quind.model.customer.Customer;
 import co.com.quind.model.customer.gateways.CustomerRepository;
 import co.com.quind.model.product.Product;
 import co.com.quind.model.product.gateways.ProductRepository;
-import co.com.quind.usecase.product.ProductUseCase;
 import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDate;

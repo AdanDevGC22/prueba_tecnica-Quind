@@ -11,7 +11,6 @@ import co.com.quind.usecase.customer.CustomerUseCase;
 import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Random;
 
 @RequiredArgsConstructor

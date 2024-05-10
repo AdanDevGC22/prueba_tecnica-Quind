@@ -1,6 +1,5 @@
 package co.com.quind.jpa.adapter;
 
-import co.com.quind.jpa.entities.CustomerEntity;
 import co.com.quind.jpa.entities.ProductEntity;
 import co.com.quind.jpa.mapper.CustomerMapper;
 import co.com.quind.jpa.mapper.ProductMapper;
@@ -32,7 +31,7 @@ public class JPAProductRepositoryAdapter implements ProductRepository {
         Optional<ProductEntity> productEntity = jpaProductRepository.findByAccountNumber(accountNumber);
 
         if (productEntity.isEmpty()) {
-            throw new QuindException(ErrorCode.B404000);
+            throw new QuindException(ErrorCode.B404001);
         }
         return ProductMapper.toProduct(productEntity.get());
     }

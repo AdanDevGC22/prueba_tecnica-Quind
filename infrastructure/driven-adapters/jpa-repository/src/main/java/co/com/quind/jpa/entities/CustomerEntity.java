@@ -3,10 +3,10 @@ package co.com.quind.jpa.entities;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -26,19 +26,21 @@ public class CustomerEntity {
     private String identificationNumber;
 
     private String names;
+
     private String lastname;
 
     @Column(name = "email")
     private String email;
 
-    @Column(name = "birthdate")
     private LocalDate birthdate;
 
-    @CreatedDate
     @Column(name = "creation_date", updatable = false)
     private LocalDateTime creationDate;
 
-    @LastModifiedDate
     @Column(name = "modification_date")
     private LocalDateTime modificationDate;
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    private List<ProductEntity> products;
+
 }

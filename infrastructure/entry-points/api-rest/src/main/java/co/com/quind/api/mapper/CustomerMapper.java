@@ -1,7 +1,7 @@
 package co.com.quind.api.mapper;
 
-import co.com.quind.api.dto.CustomerRequestDto;
-import co.com.quind.api.dto.CustomerResponseDto;
+import co.com.quind.api.dto.request.CustomerRequestDto;
+import co.com.quind.api.dto.response.CustomerResponseDto;
 import co.com.quind.model.customer.Customer;
 import lombok.experimental.UtilityClass;
 

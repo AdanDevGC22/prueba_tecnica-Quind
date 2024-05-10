@@ -17,6 +17,8 @@ spring:
     password: "admin123"
     driverClassName: "org.postgresql.Driver"
   jpa:
+    hibernate:
+      ddl-auto: update
     databasePlatform: "org.hibernate.dialect.PostgreSQLDialect"
 management:
   endpoints:

@@ -1,4 +1,4 @@
-package co.com.quind.model.customer.config;
+package co.com.quind.model.config;
 
 import lombok.*;
 @Getter

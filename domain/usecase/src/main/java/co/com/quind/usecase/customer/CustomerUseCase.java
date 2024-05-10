@@ -1,9 +1,12 @@
 package co.com.quind.usecase.customer;
 
 import co.com.quind.model.customer.Customer;
-import co.com.quind.model.customer.config.ErrorCode;
-import co.com.quind.model.customer.config.QuindException;
+import co.com.quind.model.config.ErrorCode;
+import co.com.quind.model.config.QuindException;
 import co.com.quind.model.customer.gateways.CustomerRepository;
+import co.com.quind.model.product.Product;
+import co.com.quind.model.product.gateways.ProductRepository;
+import co.com.quind.usecase.product.ProductUseCase;
 import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDate;
@@ -15,6 +18,7 @@ import java.util.Objects;
 public class CustomerUseCase {
 
     private final CustomerRepository customerRepository;
+    private final ProductRepository productRepository;
 
     public List<Customer> getAll() {
         return customerRepository.getAll();
@@ -29,6 +33,8 @@ public class CustomerUseCase {
         if (ageCustomer < 18) {
             throw new QuindException(ErrorCode.B409000);
         }
+        customer.setCreationDate(LocalDateTime.now());
+        customer.setModificationDate(LocalDateTime.now());
         return customerRepository.saveCustomer(customer);
     }
 
@@ -43,8 +49,10 @@ public class CustomerUseCase {
     }
 
     public void deleteCustomerFromDB(Long id) {
-        if (!customerRepository.existsById(id)) {
-            throw new QuindException(ErrorCode.B404000);
+        Customer customer = getCustomerByID(id);
+        List<Product> productList= productRepository.getAllByCustomer(customer);
+        if (!productList.isEmpty()) {
+            throw new QuindException(ErrorCode.B409006);
         }
         customerRepository.delete(id);
     }
@@ -75,4 +83,5 @@ public class CustomerUseCase {
 
         return customerSaved;
     }
+
 }

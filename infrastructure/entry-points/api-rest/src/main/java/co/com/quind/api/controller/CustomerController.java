@@ -1,6 +1,6 @@
 package co.com.quind.api.controller;
-import co.com.quind.api.dto.CustomerRequestDto;
-import co.com.quind.api.dto.CustomerResponseDto;
+import co.com.quind.api.dto.request.CustomerRequestDto;
+import co.com.quind.api.dto.response.CustomerResponseDto;
 import co.com.quind.api.mapper.CustomerMapper;
 import co.com.quind.model.customer.Customer;
 import co.com.quind.usecase.customer.CustomerUseCase;
@@ -35,8 +35,8 @@ public class CustomerController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/")
-    public CustomerResponseDto getCustomerById(@RequestParam(name = "id") Long id){
+    @GetMapping("/{id}")
+    public CustomerResponseDto getCustomerById(@PathVariable(name = "id") Long id){
         return CustomerMapper.customerToCustomerResponseDto(customerUseCase.getCustomerByID(id));
     }
 
@@ -48,8 +48,9 @@ public class CustomerController {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping("/")
-    public void deleteCustomerFromDB(@RequestParam(name = "id") Long id){
+    @DeleteMapping("/{id}")
+    public void deleteCustomerFromDB(@PathVariable(name = "id") Long id){
+        //no puedo eliminarlo hasta que tenga elimine primero las cuentas
          customerUseCase.deleteCustomerFromDB(id);
     }
 

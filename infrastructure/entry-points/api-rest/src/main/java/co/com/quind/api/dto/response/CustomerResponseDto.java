@@ -1,4 +1,4 @@
-package co.com.quind.api.dto;
+package co.com.quind.api.dto.response;
 
 import lombok.*;
 

@@ -1,7 +1,7 @@
 package co.com.quind.api.mapper;
 
-import co.com.quind.api.dto.ResponseErrorDto;
-import co.com.quind.model.customer.config.ErrorDictionary;
+import co.com.quind.api.dto.response.ResponseErrorDto;
+import co.com.quind.model.config.ErrorDictionary;
 
 public class ErrorResponseMapper {
     public static ResponseErrorDto toResponseErrorDto(ErrorDictionary errorDictionary) {

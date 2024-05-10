@@ -51,7 +51,6 @@ public class CustomerController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     public void deleteCustomerFromDB(@PathVariable(name = "id") Long id){
-        //no puedo eliminarlo hasta que tenga elimine primero las cuentas
          customerUseCase.deleteCustomerFromDB(id);
     }
 

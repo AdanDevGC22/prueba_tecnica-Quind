@@ -1,7 +1,7 @@
 package co.com.quind.model.product;
+
 import co.com.quind.model.customer.Customer;
 import lombok.*;
-//import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

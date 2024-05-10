@@ -43,7 +43,7 @@ public class JPACustomerRepositoryAdapter implements CustomerRepository {
     public Customer getCustomerById(Long id) {
         Optional<CustomerEntity> customerEntity = jpaCustomerRepository.findById(id);
 
-        if (!customerEntity.isPresent()) {
+        if (customerEntity.isEmpty()) {
             throw new QuindException(ErrorCode.B404000);
         }
         return CustomerMapper.toCustomer(customerEntity.get());

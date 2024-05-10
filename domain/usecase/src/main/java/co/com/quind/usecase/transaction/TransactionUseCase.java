@@ -18,10 +18,10 @@ public class TransactionUseCase {
     private final TransactionRepository transactionRepository;
     private final ProductRepository productRepository;
     public Transaction consignment(String accountNumber, double amount) {
-        Product productDB = productRepository.getProductByAccountNumber(accountNumber);
         if (amount <= 0) {
             throw new QuindException(ErrorCode.B409009);
         }
+        Product productDB = productRepository.getProductByAccountNumber(accountNumber);
         productDB.setBalance(productDB.getBalance().add(BigDecimal.valueOf(amount)));
         productDB.setModificationDate(LocalDateTime.now());
         productRepository.save(productDB);
@@ -30,14 +30,14 @@ public class TransactionUseCase {
     }
 
     public Transaction retreat(String accountNumber, double amount) {
-        Product productDB = productRepository.getProductByAccountNumber(accountNumber);
+
         if (amount <= 0) {
             throw new QuindException(ErrorCode.B409009);
         }
+        Product productDB = productRepository.getProductByAccountNumber(accountNumber);
         if (productDB.getBalance().compareTo(BigDecimal.valueOf(amount)) < 0) {
             throw new QuindException(ErrorCode.B409010);
         }
-
         productDB.setBalance(productDB.getBalance().subtract(BigDecimal.valueOf(amount)));
         productDB.setModificationDate(LocalDateTime.now());
         productRepository.save(productDB);
@@ -63,7 +63,7 @@ public class TransactionUseCase {
         return saveTransaction(sourceProductDB, destinationProductDB, amount, TransactionType.TRANSFERENCIA);
     }
 
-    private Transaction saveTransaction(Product sourceAccount, Product destinationAccount, double amount, TransactionType type) {
+    public Transaction saveTransaction(Product sourceAccount, Product destinationAccount, double amount, TransactionType type) {
         Transaction transaction = new Transaction();
         transaction.setTransactionDate(LocalDateTime.now());
         transaction.setType(type);

@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 public class CustomerUseCase {
@@ -49,7 +50,7 @@ public class CustomerUseCase {
 
     public void deleteCustomerFromDB(Long id) {
         Customer customer = getCustomerByID(id);
-        List<Product> productList= productRepository.getAllByCustomer(customer);
+        List<Product> productList = productRepository.getAllByCustomer(customer);
         if (!productList.isEmpty()) {
             throw new QuindException(ErrorCode.B409006);
         }
@@ -57,20 +58,22 @@ public class CustomerUseCase {
     }
 
     public Customer update(Customer customer) {
-        LocalDate currentDate = LocalDate.now();
-        int ageCustomer = currentDate.getYear() - customer.getBirthdate().getYear();
+        // Lanzar una excepción si customer es nulo
+        Objects.requireNonNull(customer);
+
+        // Validar la edad del cliente
+        int ageCustomer = LocalDate.now().getYear() - Optional.ofNullable(customer.getBirthdate())
+                .map(LocalDate::getYear).orElseThrow(() -> new QuindException(ErrorCode.B400000));
 
         if (ageCustomer < 18) {
             throw new QuindException(ErrorCode.B409000);
         }
 
-        Customer customerSaved = customerRepository.findByIdentificationNumberAndIdentificationType(customer.getIdentificationNumber(), customer.getIdentificationType());
+        // Buscar el cliente en el repositorio
+        Customer customerSaved = Optional.ofNullable(customerRepository.findByIdentificationNumberAndIdentificationType(customer.getIdentificationNumber(),
+                customer.getIdentificationType())).orElseThrow(() -> new QuindException(ErrorCode.B404000));
 
-        if (Objects.isNull(customerSaved)) {
-
-            throw new QuindException(ErrorCode.B404000);
-        }
-
+        // Actualizar los datos del cliente
         customerSaved.setModificationDate(LocalDateTime.now());
         customerSaved.setEmail(customer.getEmail());
         customerSaved.setNames(customer.getNames());

@@ -3,9 +3,9 @@ package co.com.quind.jpa.adapter;
 import co.com.quind.jpa.entities.CustomerEntity;
 import co.com.quind.jpa.mapper.CustomerMapper;
 import co.com.quind.jpa.repository.JPACustomerRepository;
-import co.com.quind.model.customer.Customer;
 import co.com.quind.model.config.ErrorCode;
 import co.com.quind.model.config.QuindException;
+import co.com.quind.model.customer.Customer;
 import co.com.quind.model.customer.gateways.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -43,7 +43,7 @@ public class JPACustomerRepositoryAdapter implements CustomerRepository {
     public Customer getCustomerById(Long id) {
         Optional<CustomerEntity> customerEntity = jpaCustomerRepository.findById(id);
 
-        if (!customerEntity.isPresent()) {
+        if (customerEntity.isEmpty()) {
             throw new QuindException(ErrorCode.B404000);
         }
         return CustomerMapper.toCustomer(customerEntity.get());

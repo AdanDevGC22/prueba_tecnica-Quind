@@ -1,7 +1,5 @@
 package co.com.quind.api.dto.request;
 
-import co.com.quind.model.product.AccountType;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.*;
 

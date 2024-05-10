@@ -1,18 +1,18 @@
 package co.com.quind.usecase.customer;
 
-import co.com.quind.model.customer.Customer;
 import co.com.quind.model.config.ErrorCode;
 import co.com.quind.model.config.QuindException;
+import co.com.quind.model.customer.Customer;
 import co.com.quind.model.customer.gateways.CustomerRepository;
 import co.com.quind.model.product.Product;
 import co.com.quind.model.product.gateways.ProductRepository;
-import co.com.quind.usecase.product.ProductUseCase;
 import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 public class CustomerUseCase {
@@ -50,7 +50,7 @@ public class CustomerUseCase {
 
     public void deleteCustomerFromDB(Long id) {
         Customer customer = getCustomerByID(id);
-        List<Product> productList= productRepository.getAllByCustomer(customer);
+        List<Product> productList = productRepository.getAllByCustomer(customer);
         if (!productList.isEmpty()) {
             throw new QuindException(ErrorCode.B409006);
         }
@@ -58,19 +58,17 @@ public class CustomerUseCase {
     }
 
     public Customer update(Customer customer) {
-        LocalDate currentDate = LocalDate.now();
-        int ageCustomer = currentDate.getYear() - customer.getBirthdate().getYear();
+        Objects.requireNonNull(customer);
+
+        int ageCustomer = LocalDate.now().getYear() - Optional.ofNullable(customer.getBirthdate())
+                .map(LocalDate::getYear).orElseThrow(() -> new QuindException(ErrorCode.B400000));
 
         if (ageCustomer < 18) {
             throw new QuindException(ErrorCode.B409000);
         }
 
-        Customer customerSaved = customerRepository.findByIdentificationNumberAndIdentificationType(customer.getIdentificationNumber(), customer.getIdentificationType());
-
-        if (Objects.isNull(customerSaved)) {
-
-            throw new QuindException(ErrorCode.B404000);
-        }
+        Customer customerSaved = Optional.ofNullable(customerRepository.findByIdentificationNumberAndIdentificationType(customer.getIdentificationNumber(),
+                customer.getIdentificationType())).orElseThrow(() -> new QuindException(ErrorCode.B404000));
 
         customerSaved.setModificationDate(LocalDateTime.now());
         customerSaved.setEmail(customer.getEmail());

@@ -6,6 +6,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'io.micrometer:micrometer-registry-prometheus'
     implementation "org.springframework.boot:spring-boot-starter-validation"
+    implementation 'jakarta.transaction:jakarta.transaction-api:2.0.1'
+
 }
 
 

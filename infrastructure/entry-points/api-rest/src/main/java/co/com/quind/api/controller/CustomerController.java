@@ -4,6 +4,7 @@ import co.com.quind.api.dto.response.CustomerResponseDto;
 import co.com.quind.api.mapper.CustomerMapper;
 import co.com.quind.model.customer.Customer;
 import co.com.quind.usecase.customer.CustomerUseCase;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -11,7 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@Transactional
 @RestController
 @RequestMapping(value = "/api/customer", produces = MediaType.APPLICATION_JSON_VALUE)
 @AllArgsConstructor
@@ -50,7 +51,6 @@ public class CustomerController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     public void deleteCustomerFromDB(@PathVariable(name = "id") Long id){
-        //no puedo eliminarlo hasta que tenga elimine primero las cuentas
          customerUseCase.deleteCustomerFromDB(id);
     }
 

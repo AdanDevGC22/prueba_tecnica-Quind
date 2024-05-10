@@ -28,7 +28,6 @@ public class ProductMapper {
     public static  Product toDomain(ProductRequestDto productRequestDto){
         Customer customer = new Customer();
         customer.setId(productRequestDto.getCustomerId());
-       // IllegalArgumentException
         AccountType accountType;
         try{
             accountType = co.com.quind.model.product.AccountType.valueOf(productRequestDto.getAccountType());
